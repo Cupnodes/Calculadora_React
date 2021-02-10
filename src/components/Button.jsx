@@ -8,6 +8,7 @@ export default props =>
         ${props.operation ? 'operation' : ''}
         ${props.double ? 'double' : ''}
         ${props.triple ? 'triple' : ''}
+        ${props.gray ? 'gray' : ''}
     `}
     
     onClick={e => props.click && props.click(props.label)}
