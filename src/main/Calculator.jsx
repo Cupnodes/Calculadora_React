@@ -9,7 +9,8 @@ const initialState = {
     clearDisplay: false,
     operation: null,
     values: [0, 0],
-    current: 0
+    current: 0,
+    operationResult: 0
 }
 
 export default class Calculator extends Component {
@@ -35,7 +36,46 @@ export default class Calculator extends Component {
             const currentOperation = this.state.operation
             const values = [...this.state.values]
 
-            values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
+            //values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
+            switch(currentOperation) {
+                case '+':
+                    this.setState({operationResult: values[0] + values[1]})
+                    break;
+                case '-':
+                    this.setState({operationResult: values[0] - values[1]})
+                    break;
+                case '*':
+                    this.setState({operationResult: values[0] * values[1]})
+                    break;
+                case '/':
+                    this.setState({operationResult: values[0] / values[1]})
+                    break;
+                default:
+                    return;
+            }
+
+
+            if(currentOperation === '+') {
+                this.setState({operationResult: values[0] + values[1]})
+            }
+
+            if(currentOperation === '-') {
+                this.setState({operationResult: values[0] - values[1]})
+            }
+
+            if(currentOperation === '*') {
+                this.setState({operationResult: values[0] * values[1]})
+            }
+
+            if(currentOperation === '/') {
+                this.setState({operationResult: values[0] / values[1]})
+            }
+
+            if(equals) {
+                this.setState({operationResult: values[0] / values[1]})
+            }
+
+
             values[1] = 0
 
             this.setState({
@@ -74,23 +114,23 @@ export default class Calculator extends Component {
         return (
             <div className="calculator">
                 <Display value={this.state.displayValue} />
-                <Button label="AC" click={this.clearMemory} />
-                <Button label="/" click={this.setOperation}/>
+                <Button label="AC" click={this.clearMemory} triple gray/>
+                <Button label="/" click={this.setOperation} operation/>
                 <Button label="7" click={this.addDigit}/>
                 <Button label="8" click={this.addDigit}/>
                 <Button label="9" click={this.addDigit}/>
-                <Button label="*" click={this.setOperation}/>
+                <Button label="*" click={this.setOperation} operation/>
                 <Button label="4" click={this.addDigit}/>
                 <Button label="5" click={this.addDigit}/>
                 <Button label="6" click={this.addDigit}/>
-                <Button label="-" click={this.setOperation}/>
+                <Button label="-" click={this.setOperation} operation/>
                 <Button label="1" click={this.addDigit}/>
                 <Button label="2" click={this.addDigit}/>
                 <Button label="3" click={this.addDigit}/>
-                <Button label="+" click={this.setOperation}/>
-                <Button label="0" click={this.addDigit}/>
+                <Button label="+" click={this.setOperation} operation/>
+                <Button label="0" click={this.addDigit} double/>
                 <Button label="." click={this.addDigit}/>
-                <Button label="=" click={this.setOperation}/>
+                <Button label="=" click={this.setOperation} operation/>
             </div>
         )
     }
